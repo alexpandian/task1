@@ -1,0 +1,19 @@
+<ul class="ul-style">
+    <li *ngFor="let item of objRef | keyvalue : returnZero">
+        <div *ngIf="item.value.dataType == 'object'">
+            <div> <img [src]="item.value.iconUrl" class="icons" />&nbsp;&nbsp;{{ item.key }}</div>
+            <app-object-render [objRef]="item.value.value"></app-object-render>
+        </div>
+        <div *ngIf="item.value.dataType == 'array'">
+            <div><img [src]="item.value.iconUrl" class="icons" />&nbsp;&nbsp;{{ item.key }}</div>
+            <app-object-render [objRef]="item.value.value"></app-object-render>
+        </div>
+        <div *ngIf="item.value.dataType == 'number'">
+            <img [src]="item.value.iconUrl" class="icons" />&nbsp;&nbsp;{{ item.key }}
+        </div>
+        <div *ngIf="item.value.dataType == 'string'">
+            <img [src]="item.value.iconUrl" class="icons" />&nbsp;&nbsp;{{ item.key }}
+        </div>
+    </li>
+</ul>
+<button (click)="test1()">bbbbbbb</button>
