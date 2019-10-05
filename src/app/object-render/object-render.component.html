@@ -1,19 +1,103 @@
 <ul class="ul-style">
-    <li *ngFor="let item of objRef | keyvalue : returnZero">
+    <li *ngFor="let item of objRef | keyvalue : returnZero; let i = index;">
         <div *ngIf="item.value.dataType == 'object'">
-            <div> <img [src]="item.value.iconUrl" class="icons" />&nbsp;&nbsp;{{ item.key }}</div>
+            <div class="right-menu-holder">
+                <img [src]="item.value.iconUrl" class="icons" />&nbsp;&nbsp;{{ item.key }}
+                &nbsp;&nbsp; <span (click)="toggleRightMenu(item.value)"
+                    [ngClass]="{'activated-dots':item.value.showRightMenu}" class="dots">...</span>
+                <div class="right-menu" *ngIf="item.value.showRightMenu">
+                    <ul class="ul-style">
+                        <li (click)="editItem(item.key)">edit item</li>
+                        <li (click)="editItem(item.value)">add item</li>
+                    </ul>
+                </div>
+            </div>
             <app-object-render [objRef]="item.value.value"></app-object-render>
         </div>
         <div *ngIf="item.value.dataType == 'array'">
-            <div><img [src]="item.value.iconUrl" class="icons" />&nbsp;&nbsp;{{ item.key }}</div>
+            <div class="right-menu-holder">
+                <img [src]="item.value.iconUrl" class="icons" />&nbsp;&nbsp;{{ item.key }}
+                &nbsp;&nbsp; <span (click)="toggleRightMenu(item.value)"
+                    [ngClass]="{'activated-dots':item.value.showRightMenu}" class="dots">...</span>
+                <div class="right-menu" *ngIf="item.value.showRightMenu">
+                    <ul class="ul-style">
+                        <li (click)="editItem(item.key)">edit item</li>
+                        <li (click)="editItem(item.value)">add item</li>
+                    </ul>
+                </div>
+            </div>
             <app-object-render [objRef]="item.value.value"></app-object-render>
         </div>
         <div *ngIf="item.value.dataType == 'number'">
-            <img [src]="item.value.iconUrl" class="icons" />&nbsp;&nbsp;{{ item.key }}
+            <div class="right-menu-holder">
+                <img [src]="item.value.iconUrl" class="icons" />&nbsp;&nbsp;{{ item.key }}
+                &nbsp;&nbsp; <span (click)="toggleRightMenu(item.value)"
+                    [ngClass]="{'activated-dots':item.value.showRightMenu}" class="dots">...</span>
+                <div class="right-menu" *ngIf="item.value.showRightMenu">
+                    <ul class="ul-style">
+                        <li (click)="editItem(item.key)">edit item</li>
+                    </ul>
+                </div>
+            </div>
         </div>
         <div *ngIf="item.value.dataType == 'string'">
-            <img [src]="item.value.iconUrl" class="icons" />&nbsp;&nbsp;{{ item.key }}
+            <div class="right-menu-holder">
+                <img [src]="item.value.iconUrl" class="icons" />&nbsp;&nbsp;{{ item.key }}
+                &nbsp;&nbsp; <span (click)="toggleRightMenu(item.value)"
+                    [ngClass]="{'activated-dots':item.value.showRightMenu}" class="dots">...</span>
+                <div class="right-menu" *ngIf="item.value.showRightMenu">
+                    <ul class="ul-style">
+                        <li (click)="editItem(item.key)">edit item</li>
+                    </ul>
+                </div>
+            </div>
         </div>
     </li>
 </ul>
 <button (click)="test1()">bbbbbbb</button>
+
+<div class="form" *ngIf="showForm" >
+    <form>
+        <table>
+            <tr>
+                <td>dataType</td>
+                <td>
+                    <select name="dataType" [(ngModel)]="currentFormModel.dataType" >
+                        <option [value]="" > -- select data type --</option>
+                        <option *ngFor="let item of dataTypes | keyvalue : returnZero;" [value]="item.value.dataType" >{{ item.value.dataType }}</option>
+                    </select>
+                </td>
+            </tr>
+            <tr>
+                <td>name</td>
+                <td><input name="name" [(ngModel)]="currentFormModel.name" /></td>
+            </tr>
+            <tr>
+                <td>shortDesc</td>
+                <td><input name="shortDesc" [(ngModel)]="currentFormModel.shortDesc" /></td>
+            </tr>
+            <tr>
+                <td>minLength</td>
+                <td><input name="minLength" [(ngModel)]="currentFormModel.minLength" /></td>
+            </tr>
+            <tr>
+                <td>maxLength</td>
+                <td><input name="maxLength" [(ngModel)]="currentFormModel.maxLength" /></td>
+            </tr>
+            <tr>
+                <td>defaultValue</td>
+                <td><input name="defaultValue" [(ngModel)]="currentFormModel.defaultValue" /></td>
+            </tr>
+            <tr>
+                <td>helpText</td>
+                <td><input name="helpText" [(ngModel)]="currentFormModel.helpText" /></td>
+            </tr>
+            <tr>
+                <td></td>
+                <td>
+                    <button (click)="save()" >Save</button>
+                </td>
+            </tr>
+        </table>
+    </form>
+</div>

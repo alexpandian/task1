@@ -1,5 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
+import { FormsModule } from '@angular/forms';
 
 import { AppComponent } from './app.component';
 import { ObjectRenderComponent } from './object-render/object-render.component';
@@ -10,7 +11,8 @@ import { ObjectRenderComponent } from './object-render/object-render.component';
     ObjectRenderComponent
   ],
   imports: [
-    BrowserModule
+    BrowserModule,
+    FormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]

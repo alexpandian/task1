@@ -121,47 +121,4 @@ export class AppComponent {
     }
     return finalObject;
   }
-
-  dataTypes = {
-    number: {
-      dataType: 'number',
-      name: "",
-      shortDesc: "",
-      minLength: 0,
-      maxLength: 100,
-      defaultValue: "",
-      hide: false,
-      helpText: '',
-      iconUrl: 'assets/numbered-list.svg'
-    },
-    string: {
-      dataType: 'string',
-      name: "",
-      shortDesc: "",
-      minLength: 0,
-      maxLength: 100,
-      defaultValue: "",
-      hide: false,
-      helpText: '',
-      iconUrl: 'assets/align-to-left.svg'
-    },
-    object: {
-      dataType: 'object',
-      name: "",
-      shortDesc: "",
-      defaultValue: "",
-      hide: false,
-      helpText: '',
-      iconUrl: 'assets/folder.svg'
-    },
-    array: {
-      dataType: 'array',
-      name: "",
-      shortDesc: "",
-      defaultValue: "",
-      hide: false,
-      helpText: '',
-      iconUrl: 'assets/profiles.svg'
-    }
-  };
 }
