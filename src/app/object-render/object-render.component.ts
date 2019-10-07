@@ -1,4 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
+import { JsonFormatService } from '../json-format.service';
 
 @Component({
   selector: 'app-object-render',
@@ -8,17 +9,10 @@ import { Component, OnInit, Input } from '@angular/core';
 export class ObjectRenderComponent implements OnInit {
 
   @Input() objRef: any;
-  currentFormModel = {
-    dataType: '',
-    name: "",
-    shortDesc: "",
-    minLength: 0,
-    maxLength: 100,
-    defaultValue: "",
-    helpText: '',
-  };
+  currentIndex = null;
+  currentItem = null;
   showForm = false;
-  constructor() { }
+  constructor(public jsonFormatService: JsonFormatService) { }
 
   ngOnInit() {
   }
@@ -27,69 +21,40 @@ export class ObjectRenderComponent implements OnInit {
     return 0
   }
 
-  toggleRightMenu(item){
+  toggleRightMenu(item) {
     item.showRightMenu = (item.showRightMenu) ? false : true;
   }
 
-  editItem(key){
+  editItem(item) {
     this.showForm = true;
-    this.currentFormModel = this.objRef[key];
+    this.currentItem = item;
   }
 
-  addItem(item){
-
+  addItem(parent) {
+    let index = this.jsonFormatService.addItem(parent);
+    this.currentIndex = index;
+    this.currentItem = parent[index];
+    this.showForm = true;
   }
 
-  save(){
-    console.log(this.currentFormModel);
-    console.log(this.objRef);
-  }
-
-  dataTypes = {
-    number: {
-      dataType: 'number',
-      name: "",
-      shortDesc: "",
-      minLength: 0,
-      maxLength: 100,
-      defaultValue: "",
-      hide: false,
-      helpText: '',
-      iconUrl: 'assets/numbered-list.svg'
-    },
-    string: {
-      dataType: 'string',
-      name: "",
-      shortDesc: "",
-      minLength: 0,
-      maxLength: 100,
-      defaultValue: "",
-      hide: false,
-      helpText: '',
-      iconUrl: 'assets/align-to-left.svg'
-    },
-    object: {
-      dataType: 'object',
-      name: "",
-      shortDesc: "",
-      defaultValue: "",
-      hide: false,
-      helpText: '',
-      iconUrl: 'assets/folder.svg'
-    },
-    array: {
-      dataType: 'array',
-      name: "",
-      shortDesc: "",
-      defaultValue: "",
-      hide: false,
-      helpText: '',
-      iconUrl: 'assets/profiles.svg'
+  dataTypeChanged() {
+    let dataType = this.currentItem.dataType;
+    let object = this.jsonFormatService.dataTypes[dataType];
+    for (var prop in object) {
+      if (object.hasOwnProperty(prop)) {
+        this.currentItem[prop] = object[prop];
+      }
     }
-  };
+    //this.currentItem = Object.assign({}, this.jsonFormatService.dataTypes[dataType]);
+  }
 
-  test1() {
-    this.objRef.id.value = 123;
+  close() {
+    this.toggleRightMenu(this.objRef);
+    this.showForm = false;
+  }
+
+  save() {
+    this.close();
   }
 
 }

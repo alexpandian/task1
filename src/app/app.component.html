@@ -1,11 +1,10 @@
 <div class="top">
   <div>
-    <app-object-render [objRef]="formObject"></app-object-render>
+    <app-object-render [objRef]="jsonFormatService.formObject"></app-object-render>
   </div>
-  <button (click)="testCheck()">gfgffg</button>
 </div>
 <div class="bottom">
   <div>
-    <pre>{{ getJsonFromObject(formObject) | json }}</pre>
+    <pre>{{ getFinalJson() | json }}</pre>
   </div>
 </div>
